@@ -1,0 +1,32 @@
+{% extends 'Entrega3/Base.html' %}
+
+{% block contenido %}
+<h2>Buscar Concierto</h2>
+
+<form method="get">
+    <input type="text" name="banda" placeholder="Buscar por banda" value="{{ query }}">
+    <button type="submit">Buscar</button>
+</form>
+
+<h3>Resultados de la búsqueda</h3>
+{% if resultados %}
+    <ul>
+        {% for concierto in resultados %}
+            <li>{{ concierto.banda }} – {{ concierto.ciudad }} ({{ concierto.fecha_evento|date:"d/m/Y" }})</li>
+        {% endfor %}
+    </ul>
+{% elif query %}
+    <p>No se encontraron resultados.</p>
+{% endif %}
+
+<hr>
+
+<h3>Todos los conciertos registrados</h3>
+<ul>
+    {% for concierto in todos %}
+        <li>{{ concierto.banda }} – {{ concierto.ciudad }} ({{ concierto.fecha_evento|date:"d/m/Y" }})</li>
+    {% empty %}
+        <li>No hay conciertos cargados aún.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

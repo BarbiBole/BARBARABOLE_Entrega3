@@ -1,0 +1,32 @@
+{% extends 'Entrega3/Base.html' %}
+
+{% block contenido %}
+<h2>Buscar Libro</h2>
+
+<form method="get">
+    <input type="text" name="titulo" placeholder="Buscar por título" value="{{ query }}">
+    <button type="submit">Buscar</button>
+</form>
+
+<h3>Resultados de la búsqueda</h3>
+{% if resultados %}
+    <ul>
+        {% for libro in resultados %}
+            <li>{{ libro.titulo }} – {{ libro.autor }} ({{ libro.fecha_publicacion|date:"d/m/Y" }})</li>
+        {% endfor %}
+    </ul>
+{% elif query %}
+    <p>No se encontraron resultados.</p>
+{% endif %}
+
+<hr>
+
+<h3>Todos los libros cargados</h3>
+<ul>
+    {% for libro in todos %}
+        <li>{{ libro.titulo }} – {{ libro.autor }} ({{ libro.fecha_publicacion|date:"d/m/Y" }})</li>
+    {% empty %}
+        <li>No hay libros cargados aún.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'Entrega3/Base.html' %}
+
+{% block contenido %}
+<h2>Libros</h2>
+<ul>
+    <li><a href="{% url 'agregar_libro' %}">Agregar Libro</a></li>
+    <li><a href="{% url 'buscar_libro' %}">Buscar Libro</a></li>
+</ul>
+{% endblock %}

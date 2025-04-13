@@ -1,0 +1,32 @@
+{% extends 'Entrega3/Base.html' %}
+
+{% block contenido %}
+<h2>Buscar Película</h2>
+
+<form method="get">
+    <input type="text" name="titulo" placeholder="Buscar por título" value="{{ query }}">
+    <button type="submit">Buscar</button>
+</form>
+
+<h3>Resultados de la búsqueda</h3>
+{% if resultados %}
+    <ul>
+        {% for pelicula in resultados %}
+            <li>{{ pelicula.titulo }} – {{ pelicula.director }} ({{ pelicula.fecha_estreno|date:"d/m/Y" }})</li>
+        {% endfor %}
+    </ul>
+{% elif query %}
+    <p>No se encontraron resultados.</p>
+{% endif %}
+
+<hr>
+
+<h3>Todas las películas cargadas</h3>
+<ul>
+    {% for pelicula in todos %}
+        <li>{{ pelicula.titulo }} – {{ pelicula.director }} ({{ pelicula.fecha_estreno|date:"d/m/Y" }})</li>
+    {% empty %}
+        <li>No hay películas cargadas aún.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
