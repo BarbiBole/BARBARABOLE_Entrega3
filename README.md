@@ -125,27 +125,34 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Abrir en el navegador: [http://127.0.0.1:8000/]
-
 ---
 
 ## Enlaces útiles
 
+Abrir en el navegador: [http://127.0.0.1:8000/]
+
 - [http://127.0.0.1:8000/admin/] – Panel de administración
-- [http://127.0.0.1:8000/blog/] – Página de inicio
-- [http://127.0.0.1:8000/ver_datos/] – Visualización de todos los datos cargados
+- [http://localhost:8000/blog/login/] – Página para loguearte
+- [http://localhost:8000/blog/perfil/editar/] – Visualización para editar perfil
+- [http://localhost:8000/blog/registro//] – Página para registrarte
 
-- [http://127.0.0.1:8000/libros/] – Visualización del módulo Libros
-- [http://127.0.0.1:8000/agregar_libro/] – Visualización del formulario para agregar un libro
-- [http://127.0.0.1:8000/buscar_libro/] – Visualización para buscar un libro cargado por su título
+- [http://localhost:8000/blog/acerca-de-mi/] – Acerca de mí
+- [http://localhost:8000/blog/posts/] – Página de posts
+- [http://localhost:8000/blog/] – Página para ver datos
+- [http://localhost:8000/blog/ver_datos/] – Visualización de todos los datos cargados
 
-- [http://127.0.0.1:8000/peliculas/] – Visualización del módulo Películas
-- [http://127.0.0.1:8000/agregar_pelicula/] – Visualización del formulario para agregar una pelicula
-- [http://127.0.0.1:8000/buscar_pelicula/] – Visualización para buscar una película cargado por su título
+- [http://localhost:8000/blog/libros/] – Visualización del módulo Libros
+- [http://localhost:8000/blog/agregar_libro/] – Visualización del formulario para agregar un libro
+- [http://127.0.0.1:8000/blog/buscar_libro/] – Visualización para buscar un libro cargado por su título
 
-- [http://127.0.0.1:8000/conciertos/] – Visualización del módulo Conciertos
-- [http://127.0.0.1:8000/agregar_concierto/] – Visualización del formulario para agregar un concierto
-- [http://127.0.0.1:8000/buscar_concierto/] – Visualización para buscar un concierto cargado por su título
+- [http://127.0.0.1:8000/blog/peliculas/] – Visualización del módulo Películas
+- [http://127.0.0.1:8000/blog/agregar_pelicula/] – Visualización del formulario para agregar una pelicula
+- [http://127.0.0.1:8000/blog/buscar_pelicula/] – Visualización para buscar una película cargado por su título
+
+- [http://127.0.0.1:8000/blog/conciertos/] – Visualización del módulo Conciertos
+- [http://127.0.0.1:8000/blog/agregar_concierto/] – Visualización del formulario para agregar un concierto
+- [http://127.0.0.1:8000/blog/buscar_concierto/] – Visualización para buscar un concierto cargado por su título] – Panel de administración
+
 ---
 
 ## Consideraciones
