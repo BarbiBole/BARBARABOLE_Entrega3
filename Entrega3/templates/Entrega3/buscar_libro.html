@@ -1,4 +1,4 @@
-{% extends 'Entrega3/Base.html' %}
+{% extends 'base.html' %}
 
 {% block contenido %}
 <h2>Buscar Libro</h2>
@@ -8,15 +8,17 @@
     <button type="submit">Buscar</button>
 </form>
 
-<h3>Resultados de la búsqueda</h3>
-{% if resultados %}
-    <ul>
-        {% for libro in resultados %}
-            <li>{{ libro.titulo }} – {{ libro.autor }} ({{ libro.fecha_publicacion|date:"d/m/Y" }})</li>
-        {% endfor %}
-    </ul>
-{% elif query %}
-    <p>No se encontraron resultados.</p>
+{% if query %}
+    <h3>Resultados de la búsqueda</h3>
+    {% if resultados %}
+        <ul>
+            {% for libro in resultados %}
+                <li>{{ libro.titulo }} – {{ libro.autor }} ({{ libro.fecha_publicacion|date:"d/m/Y" }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-danger">No se encontraron resultados para "{{ query }}".</p>
+    {% endif %}
 {% endif %}
 
 <hr>
@@ -30,3 +32,4 @@
     {% endfor %}
 </ul>
 {% endblock %}
+

@@ -1,11 +1,6 @@
-{% extends 'Entrega3/Base.html' %}
+{% extends 'base.html' %}
+
 {% block contenido %}
-<h1>Hola usuario!</h1>
-<p>{{ mensaje }}</p>
-
-<p>Hacé clic abajo para consultar todos los datos registrados:</p>
-
-<a href="{% url 'ver_datos' %}">
-    <button>Ver Base de Datos</button>
-</a>
+<h2>¡Hola, usuario!</h2>
+<p>Esta es la pantalla de inicio de mi proyecto Django.</p>
 {% endblock %}

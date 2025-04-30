@@ -2,10 +2,31 @@ from django.shortcuts import render, redirect
 from .models import Libro, Pelicula, Concierto
 from .forms import LibroForm, PeliculaForm, ConciertoForm
 
-# INICIO
-def inicio(request):
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Post
+
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+
+from django.contrib.auth.models import User
+from django.db import models
+
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
+from .forms import UserRegisterForm
+
+from django.contrib.auth.decorators import login_required
+from .forms import UserUpdateForm, PerfilUpdateForm
+
+# Pantalla de inicio general
+def inicio_general(request):
+    return render(request, 'Entrega3/inicio.html')
+
+# Pantalla de inicio del blog
+def inicio_blog(request):
     contexto = {"mensaje": "Bienvenido/a al Blog Cultural. Podrás encontrar reseñas de libros, películas y conciertos."}
-    return render(request, 'Entrega3/inicio.html', contexto)
+    return render(request, 'Entrega3/inicio_blog.html', contexto)
 
 # LIBROS
 def libros(request):
@@ -16,7 +37,7 @@ def agregar_libro(request):
         formulario = LibroForm(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('libros')
+            return redirect('Entrega3:libros')
     else:
         formulario = LibroForm()
     return render(request, 'Entrega3/agregar_libro.html', {'formulario': formulario})
@@ -42,7 +63,7 @@ def agregar_pelicula(request):
         formulario = PeliculaForm(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('peliculas')
+            return redirect('Entrega3:peliculas')
     else:
         formulario = PeliculaForm()
     return render(request, 'Entrega3/agregar_pelicula.html', {'formulario': formulario})
@@ -68,7 +89,7 @@ def agregar_concierto(request):
         formulario = ConciertoForm(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('conciertos')  # Redirige a la vista con name="conciertos"
+            return redirect('Entrega3:conciertos')
     else:
         formulario = ConciertoForm()
     return render(request, 'Entrega3/agregar_concierto.html', {'formulario': formulario})
@@ -85,6 +106,7 @@ def buscar_concierto(request):
         'query': query
     })
 
+# Ver todos los datos
 def ver_datos(request):
     query = request.GET.get('buscar', '')
     if query:
@@ -101,3 +123,96 @@ def ver_datos(request):
         'conciertos': conciertos,
         'query': query
     })
+
+def acerca_de_mi(request):
+    return render(request, 'Entrega3/acerca_de_mi.html')
+
+
+# 🔵 Listar Posts
+class PostListView(ListView):
+    model = Post
+    template_name = 'Entrega3/post_list.html'
+    context_object_name = 'posts'
+
+# 🔵 Ver Detalle de un Post
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'Entrega3/post_detail.html'
+    context_object_name = 'post'
+
+# 🔵 Crear un Post (solo usuarios logueados)
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    template_name = 'Entrega3/post_form.html'
+    fields = ['titulo', 'subtitulo', 'contenido', 'imagen']
+    success_url = reverse_lazy('Entrega3:post_list')
+
+# 🔵 Editar un Post (solo usuarios logueados)
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    template_name = 'Entrega3/post_form.html'
+    fields = ['titulo', 'subtitulo', 'contenido', 'imagen']
+    success_url = reverse_lazy('Entrega3:post_list')
+
+# 🔵 Borrar un Post (solo usuarios logueados)
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'Entrega3/post_confirm_delete.html'
+    success_url = reverse_lazy('Entrega3:post_list')
+
+
+class CustomLoginView(LoginView):
+    template_name = 'Entrega3/login.html'
+    
+class CustomLogoutView(LogoutView):
+    next_page = '/login/'
+
+
+def registro(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+
+            # Guardamos datos extra en el perfil
+            perfil = user.perfil
+            perfil.avatar = form.cleaned_data.get('avatar')
+            perfil.preferencias = form.cleaned_data.get('preferencias')
+            perfil.save()
+
+            login(request, user)  # Loguearlo automáticamente
+            return redirect('inicio_general')
+    else:
+        form = UserRegisterForm()
+    
+    return render(request, 'Entrega3/registro.html', {'form': form})
+
+@login_required
+def editar_perfil(request):
+    user = request.user
+    perfil = user.perfil
+
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=user)
+        perfil_form = PerfilUpdateForm(request.POST, request.FILES, instance=perfil)
+        
+        if user_form.is_valid() and perfil_form.is_valid():
+            user_form.save()
+            perfil_form.save()
+            return redirect('Entrega3:ver_perfil')
+    else:
+        user_form = UserUpdateForm(instance=user)
+        perfil_form = PerfilUpdateForm(instance=perfil)
+    
+    return render(request, 'Entrega3/editar_perfil.html', {
+        'user_form': user_form,
+        'perfil_form': perfil_form
+    })
+
+@login_required
+def ver_perfil(request):
+    return render(request, 'Entrega3/ver_perfil.html')
+
+class CambiarPasswordView(LoginRequiredMixin, PasswordChangeView):
+    template_name = 'Entrega3/cambiar_password.html'
+    success_url = reverse_lazy('Entrega3:ver_perfil')

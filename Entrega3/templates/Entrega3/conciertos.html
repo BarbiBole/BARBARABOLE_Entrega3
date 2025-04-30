@@ -1,10 +1,11 @@
-{% extends 'Entrega3/Base.html' %}
+{% extends 'base.html' %}
+
 
 {% block contenido %}
 <h2>Conciertos</h2>
 <ul>
-    <li><a href="{% url 'agregar_concierto' %}">Agregar Concierto</a></li>
-    <li><a href="{% url 'buscar_concierto' %}">Buscar Concierto</a></li>
+    <li><a href="{% url 'Entrega3:agregar_concierto' %}">Agregar Concierto</a></li>
+    <li><a href="{% url 'Entrega3:buscar_concierto' %}">Buscar Concierto</a></li>
 </ul>
 {% endblock %}
 

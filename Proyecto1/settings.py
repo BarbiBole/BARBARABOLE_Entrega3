@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Entrega3',
+    'Main',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+
+MEDIA_URL = '/media/' # MEDIA_URL es la URL que se usará para acceder a los archivos multimedia
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # MEDIA_ROOT es la ruta en el sistema de archivos donde se almacenarán los archivos multimedia
+LOGIN_URL = '/blog/login/'
+LOGOUT_REDIRECT_URL = '/blog/'
+LOGIN_REDIRECT_URL = '/blog/'  # Opcional para después de login exitoso

@@ -1,10 +1,21 @@
-# BARBARABOLE_Entrega3 
+# Trabajo final Django
 
-Este repositorio contiene el entregable3 previo al proyecto final desarrollado en Django.
+Este repositorio contiene el proyecto final desarrollado en Django.
+Proyecto configurado para correr de manera local.
 
 ## Descripción general
 
 Este proyecto es una aplicación web de tipo blog cultural, donde se pueden agregar, buscar y visualizar datos relacionados con **libros**, **películas** y **conciertos**.
+
+La aplicación permite:
+
+- Registrarse, iniciar sesión y cerrar sesión.
+- Gestionar un perfil de usuario (nombre, apellido, email, avatar, preferencias).
+- Editar datos del perfil y cambiar la contraseña.
+- Crear, ver, editar y eliminar publicaciones (Posts).
+- Subir imágenes asociadas a los posts.
+- Buscar objetos y mostrar mensajes si no hay resultados.
+- Acceder a una sección "Acerca de mí".
 
 ### Funcionalidades:
 
@@ -14,6 +25,12 @@ Este proyecto es una aplicación web de tipo blog cultural, donde se pueden agre
 - Visualización en el sitio y acceso desde el panel de administración con Django Admin (Usuario: admin, Contraseña: bole1234).
 - Navegación mediante barra de enlaces superior.
 
+- Vista de inicio (`/`) con mensaje de bienvenida.
+- Página "Acerca de mí" con información personal.
+- Blog de Posts: Crear, listar, ver, editar y borrar.
+- Gestión de usuarios: Login, logout, registro, perfil y edición.
+- Protección de vistas para usuarios autenticados usando mixins y decoradores.
+
 ---
 
 ## Estructura del proyecto
@@ -21,47 +38,66 @@ Este proyecto es una aplicación web de tipo blog cultural, donde se pueden agre
 ```
 BARBARABOLE_Entrega3/
 ├── Entrega3/
-│   ├── templates/Entrega3/         # Plantillas HTML para cada vista
-│   │   ├── Base.html               # Template base común con herencia
-│   │   ├── inicio.html             # Página de inicio
-│   │   ├── ver_datos.html          # Vista de todos los datos cargados
-│   │   ├── libros.html             # Página principal de libros
-│   │   ├── agregar_libro.html      # Formulario para agregar libros
+│   ├── templates/Entrega3/         # Plantillas HTML
+│   │   ├── base.html               # Template base común con herencia
+│   │   ├── inicio.html             # Página de inicio general
+│   │   ├── acerca_de_mi.html       # Página de "Acerca de mí"
+│   │   ├── ver_datos.html          # Vista para elegir entre Libros / Películas / Conciertos
+│   │   ├── libros.html             # Listado de libros
+│   │   ├── agregar_libro.html      # Formulario para agregar libro
 │   │   ├── buscar_libro.html       # Buscador de libros
-│   │   ├── peliculas.html          # Página principal de películas
-│   │   ├── agregar_pelicula.html   # Formulario para agregar películas
+│   │   ├── peliculas.html          # Listado de películas
+│   │   ├── agregar_pelicula.html   # Formulario para agregar película
 │   │   ├── buscar_pelicula.html    # Buscador de películas
-│   │   ├── conciertos.html         # Página principal de conciertos
-│   │   ├── agregar_concierto.html  # Formulario para agregar conciertos
+│   │   ├── conciertos.html         # Listado de conciertos
+│   │   ├── agregar_concierto.html  # Formulario para agregar concierto
 │   │   ├── buscar_concierto.html   # Buscador de conciertos
-│   ├── forms.py                    # Formularios de Libro, Película y Concierto
-│   ├── models.py                   # Modelos de base de datos
-│   ├── views.py                    # Vistas principales del sitio
+│   │   ├── post_list.html          # Listado de posts (blog)
+│   │   ├── post_detail.html        # Detalle de post
+│   │   ├── post_form.html          # Formulario para crear y editar posts
+│   │   ├── post_confirm_delete.html# Confirmación de borrado de post
+│   │   ├── login.html              # Página de login
+│   │   ├── registro.html           # Formulario de registro de usuario
+│   │   ├── perfil.html             # Perfil de usuario
+│   │   ├── editar_perfil.html      # Formulario para editar perfil
+│   │   ├── cambiar_password.html   # Formulario de cambio de contraseña
+│   ├── forms.py                    # Formularios (Libros, Películas, Conciertos, Usuario, Perfil)
+│   ├── models.py                   # Modelos de base de datos (Libros, Películas, Conciertos, Posts, Perfil de usuario)
+│   ├── views.py                    # Vistas principales
 │   ├── urls.py                     # Enrutamiento interno de la app
+│   ├── signals.py                  # Señales para creación automática de perfil
 │
 ├── Proyecto1/
-│   ├── settings.py                 # Configuración general del proyecto
-│   ├── urls.py                     # Enrutamiento global
+│   ├── settings.py                 # Configuración del proyecto
+│   ├── urls.py                     # Enrutamiento global (incluye la app Entrega3)
 │
-├── .gitignore                     # Archivos y carpetas que no se deben subir al repositorio
-├── db.sqlite3                     # Base de datos SQLite
-├── manage.py                      # Punto de entrada para ejecutar comandos
-├── README.md                      # Documentación del proyecto
-├── requirements.txt               # Dependencias del proyecto
+├── media/                          # Carpeta para imágenes subidas por los usuarios (no se sube a GitHub)
+├── static/                         # Carpeta para archivos estáticos
+├── .gitignore                      # Ignora venv, __pycache__, db.sqlite3, media/
+├── requirements.txt                # Dependencias del proyecto
+├── manage.py                       # Comando principal de Django
+├── README.md                       # Documentación del proyecto
+
 
 ```
 
 ---
 
+## Tecnologías utilizadas
+
+- Python 3.13
+- Django 5.2
+- Bootstrap 5.3 (para el diseño frontend)
+
 ## Instrucciones de uso
 
 ### 1. Clonar el repositorio
 ```bash
-git clone <URL-del-repo>
+git clone https://github.com/tu_usuario/tu_repositorio.git
 cd BARBARABOLE_Entrega3
 ```
 
-### 2. Crear entorno virtual (opcional pero recomendado)
+### 2. Crear entorno virtual 
 ```bash
 python -m venv .venv
 .venv\Scripts\activate  # En Windows
@@ -89,7 +125,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Abrir en el navegador: [http://127.0.0.1:8000/blog/]
+Abrir en el navegador: [http://127.0.0.1:8000/]
 
 ---
 
@@ -112,3 +148,12 @@ Abrir en el navegador: [http://127.0.0.1:8000/blog/]
 - [http://127.0.0.1:8000/buscar_concierto/] – Visualización para buscar un concierto cargado por su título
 ---
 
+## Consideraciones
+La base de datos (db.sqlite3) y las imágenes subidas no están en el repositorio (ver .gitignore).
+
+Las imágenes se almacenan en la carpeta /media/.
+
+Se utilizaron Class-Based Views (CBV) y decoradores para la protección de rutas.
+
+## Autor
+Bárbara Bole

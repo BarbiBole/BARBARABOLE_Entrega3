@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<h1>Mi Perfil</h1>
+<p>Bienvenido/a, {{ user.username }}</p>
+
+{% if user.perfil.avatar %}
+    <img src="{{ user.perfil.avatar.url }}" alt="Avatar" style="width: 150px; height: 150px;">
+{% endif %}
+
+<ul>
+    <li><strong>Nombre:</strong> {{ user.first_name }}</li>
+    <li><strong>Apellido:</strong> {{ user.last_name }}</li>
+    <li><strong>Email:</strong> {{ user.email }}</li>
+    <li><strong>Preferencias:</strong> {{ user.perfil.preferencias }}</li>
+</ul>
+
+<a class="btn btn-primary" href="{% url 'Entrega3:editar_perfil' %}">Editar Perfil</a>
+{% endblock %}

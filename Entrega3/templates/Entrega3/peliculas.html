@@ -1,9 +1,10 @@
-{% extends 'Entrega3/Base.html' %}
+{% extends 'base.html' %}
+
 
 {% block contenido %}
 <h2>Películas</h2>
 <ul>
-    <li><a href="{% url 'agregar_pelicula' %}">Agregar Película</a></li>
-    <li><a href="{% url 'buscar_pelicula' %}">Buscar Película</a></li>
+    <li><a href="{% url 'Entrega3:agregar_pelicula' %}">Agregar Película</a></li>
+    <li><a href="{% url 'Entrega3:buscar_pelicula' %}">Buscar Película</a></li>
 </ul>
 {% endblock %}
