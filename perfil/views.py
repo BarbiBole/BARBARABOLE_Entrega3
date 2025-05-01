@@ -11,8 +11,7 @@ from .forms import UserUpdateForm, PerfilUpdateForm
 from perfil.models import Perfil 
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-from .forms import FormularioRegistro
-
+from .forms import FormularioRegistro, UserUpdateForm
 
 def login_view(request):
     if request.method == 'POST':
@@ -42,29 +41,26 @@ def registro(request):
 
     return render(request, 'perfil/registro.html', {'form': form})
 
-
 @login_required
 def editar_perfil(request):
-    user = request.user
-    perfil, _ = Perfil.objects.get_or_create(user=user)
-
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=user)
-        perfil_form = PerfilUpdateForm(request.POST, request.FILES, instance=perfil)
-        
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        perfil_form = PerfilUpdateForm(request.POST, request.FILES, instance=request.user.perfil)
+
         if user_form.is_valid() and perfil_form.is_valid():
             user_form.save()
             perfil_form.save()
-            return redirect('perfil:ver_perfil')
+            return redirect('perfil:ver_perfil')  # Asegurate que este nombre esté en tu urls.py
     else:
-        user_form = UserUpdateForm(instance=user)
-        perfil_form = PerfilUpdateForm(instance=perfil)
-    
-    return render(request, 'perfil/editar_perfil.html', {
+        user_form = UserUpdateForm(instance=request.user)
+        perfil_form = PerfilUpdateForm(instance=request.user.perfil)
+
+    contexto = {
         'user_form': user_form,
         'perfil_form': perfil_form
-    })
+    }
 
+    return render(request, 'perfil/editar_perfil.html', contexto)
 
 @login_required
 def ver_perfil(request):

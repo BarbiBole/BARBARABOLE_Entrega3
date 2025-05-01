@@ -172,3 +172,6 @@ Se utilizaron Class-Based Views (CBV) y decoradores para la protección de rutas
 
 ## Autor
 Bárbara Bole
+
+Link para ver video explicativo de la página subido a drive: [https://drive.google.com/drive/folders/1dGDEKmjvDuJpYp6CFU0sc8QJSsYTVshG?usp=sharing]
+Link para ver video explicativo de la página subido a drive: [https://drive.google.com/file/d/1WA-GIVJ2PxM3hSVHUwYQB-QhAAxaRHF-/view?usp=drive_link]
