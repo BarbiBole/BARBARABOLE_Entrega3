@@ -25,6 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views_entrega3.inicio_general, name='inicio_general'),
     path('blog/', include(('Entrega3.urls', 'Entrega3'), namespace='Entrega3')),
+    path('perfil/', include('perfil.urls')),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

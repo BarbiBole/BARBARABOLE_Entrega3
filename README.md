@@ -12,22 +12,21 @@ La aplicación permite:
 - Registrarse, iniciar sesión y cerrar sesión.
 - Gestionar un perfil de usuario (nombre, apellido, email, avatar, preferencias).
 - Editar datos del perfil y cambiar la contraseña.
-- Crear, ver, editar y eliminar publicaciones (Posts).
-- Subir imágenes asociadas a los posts.
+- Crear, ver, editar y eliminar reseñas.
+- Subir imágenes asociadas a las reseñas.
 - Buscar objetos y mostrar mensajes si no hay resultados.
 - Acceder a una sección "Acerca de mí".
 
 ### Funcionalidades:
 
 - Agregar y buscar libros, películas y conciertos mediante formularios.
-- Listar todos los datos ingresados de forma ordenada por fecha.
-- Visualización en el inicio de la base de datos con buscador por nombre
+- Listar todos los datos ingresados.
+- Visualización en el inicio de la base de datos con buscador por nombre.
 - Visualización en el sitio y acceso desde el panel de administración con Django Admin (Usuario: barbi, Contraseña: 123).
 - Navegación mediante barra de enlaces superior.
 
 - Vista de inicio (`/`) con mensaje de bienvenida.
 - Página "Acerca de mí" con información personal.
-- Blog de Posts: Crear, listar, ver, editar y borrar.
 - Gestión de usuarios: Login, logout, registro, perfil y edición.
 
 ---
@@ -38,33 +37,40 @@ La aplicación permite:
 BARBARABOLE_Entrega3/
 ├── Entrega3/
 │   ├── templates/Entrega3/         # Plantillas HTML
-│   │   ├── base.html               # Template base común con herencia
-│   │   ├── inicio.html             # Página de inicio general
+│   │  ├── base.html                # Template base común con herencia
 │   │   ├── acerca_de_mi.html       # Página de "Acerca de mí"
-│   │   ├── ver_datos.html          # Vista para elegir entre Libros / Películas / Conciertos
-│   │   ├── libros.html             # Listado de libros
 │   │   ├── agregar_libro.html      # Formulario para agregar libro
-│   │   ├── buscar_libro.html       # Buscador de libros
-│   │   ├── peliculas.html          # Listado de películas
 │   │   ├── agregar_pelicula.html   # Formulario para agregar película
-│   │   ├── buscar_pelicula.html    # Buscador de películas
-│   │   ├── conciertos.html         # Listado de conciertos
 │   │   ├── agregar_concierto.html  # Formulario para agregar concierto
+│   │   ├── buscar_pelicula.html    # Buscador de películas
+│   │   ├── buscar_libro.html       # Buscador de libros
 │   │   ├── buscar_concierto.html   # Buscador de conciertos
-│   │   ├── post_list.html          # Listado de posts (blog)
-│   │   ├── post_detail.html        # Detalle de post
-│   │   ├── post_form.html          # Formulario para crear y editar posts
-│   │   ├── post_confirm_delete.html# Confirmación de borrado de post
-│   │   ├── login.html              # Página de login
-│   │   ├── registro.html           # Formulario de registro de usuario
-│   │   ├── perfil.html             # Perfil de usuario
-│   │   ├── editar_perfil.html      # Formulario para editar perfil
-│   │   ├── cambiar_password.html   # Formulario de cambio de contraseña
-│   ├── forms.py                    # Formularios (Libros, Películas, Conciertos, Usuario, Perfil)
-│   ├── models.py                   # Modelos de base de datos (Libros, Películas, Conciertos, Posts, Perfil de usuario)
+│   │   ├── conciertos.html         # Listado de conciertos
+│   │   ├── libros.html             # Listado de libros
+│   │   ├── peliculas.html          # Listado de películas
+│   │   ├── detalle_libro.html      # Visualización de libro
+│   │   ├── detalle_pelicula.html   # Visualización de película
+│   │   ├── detalle_concierto.html  # Visualización de concierto
+│   │   ├── confirmar_eliminar.html # Visualización de confirmación de eliminar
+│   │   ├── inicio.html             # Página de inicio
+│   │   ├── resenias_home.html      # Página de inicio de reseñas
+│   │   ├── resenias_listado.html   # VIsualización de listado de reseñas
+│   ├── forms.py                    # Formularios (Libros, Películas, Conciertos)
+│   ├── models.py                   # Modelos de base de datos (Libros, Películas, Conciertos)
 │   ├── views.py                    # Vistas principales
 │   ├── urls.py                     # Enrutamiento interno de la app
-│   ├── signals.py                  # Señales para creación automática de perfil
+│
+├── perfil/
+│   ├── templates/perfil/           # Plantillas HTML
+│   │   ├── cambiar_password.html   # Página para cambiar contraseña
+│   │   ├── editar_perfil.html      # Página para editar perfil
+│   │   ├── login.html              # Página para loguearte
+│   │   ├── registro.html           # Página para registrar usuario
+│   │   ├── ver_perfil.html         # Página para ver usuario
+│   ├── forms.py                    # Formularios (Usuario, Perfil)
+│   ├── models.py                   # Modelos de base de datos (Perfil de usuario)
+│   ├── views.py                    # Vistas principales
+│   ├── urls.py                     # Enrutamiento interno de la app
 │
 ├── Proyecto1/
 │   ├── settings.py                 # Configuración del proyecto
@@ -87,6 +93,10 @@ BARBARABOLE_Entrega3/
 - Python 3.13
 - Django 5.2
 - Bootstrap 5.3 (para el diseño frontend)
+- asgiref==3.8.1
+- sqlparse==0.5.3
+- tzdata==2025.2
+
 
 ## Instrucciones de uso
 
@@ -131,14 +141,13 @@ python manage.py runserver
 Abrir en el navegador: [http://127.0.0.1:8000/]
 
 - [http://127.0.0.1:8000/admin/] – Panel de administración
-- [http://127.0.0.1:8000/blog/login/] – Página para loguearte
-- [http://127.0.0.1:8000/blog/perfil/editar/] – Visualización para editar perfil
-- [http://127.0.0.1:8000/blog/registro//] – Página para registrarte
+- [http://127.0.0.1:8000/perfil/login/] – Página para loguearte
+- [http://127.0.0.1:8000/perfil/editar/] – Visualización para editar perfil
+- [http://127.0.0.1:8000/perfil/registro/] – Página para registrarte
 
 - [http://127.0.0.1:8000/blog/acerca-de-mi/] – Acerca de mí
-- [http://127.0.0.1:8000/blog/posts/] – Página de posts
-- [http://127.0.0.1:8000/blog/] – Página para ver datos
-- [http://127.0.0.1:8000/blog/ver_datos/] – Visualización de todos los datos cargados
+- [http://127.0.0.1:8000/resenias/] – Página para ver reseñas
+- [http://127.0.0.1:8000/resenias/listado/] – Visualización de todos los datos cargados
 
 - [http://127.0.0.1:8000/blog/libros/] – Visualización del módulo Libros
 - [http://127.0.0.1:8000/blog/agregar_libro/] – Visualización del formulario para agregar un libro

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="container mt-4">
+    <h2>¿Estás seguro que querés eliminar esta reseña?</h2>
+
+    <p><strong>{{ objeto }}</strong></p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'Entrega3:resenias_listado' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

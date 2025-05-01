@@ -15,5 +15,12 @@
 
         <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
     </form>
+
+    <hr class="my-4">
+
+    <div class="mt-4">
+        <h4>¿Querés cambiar tu contraseña?</h4>
+        <a href="{% url 'perfil:cambiar_password' %}" class="btn btn-warning mt-2">Cambiar contraseña</a>
+    </div>
 </div>
 {% endblock %}

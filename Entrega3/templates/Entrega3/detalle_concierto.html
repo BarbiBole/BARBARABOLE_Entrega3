@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2>{{ concierto.banda }}</h2>
+    <p><strong>Ciudad:</strong> {{ concierto.ciudad }}</p>
+    <p><strong>Fecha del evento:</strong> {{ concierto.fecha_evento|date:"d/m/Y" }}</p>
+    <p><strong>Puntuación:</strong> {{ concierto.puntuacion }}</p>
+
+    {% if concierto.imagen %}
+        <img src="{{ concierto.imagen.url }}" alt="{{ concierto.banda }}" class="img-fluid my-3 rounded border">
+    {% endif %}
+
+    <a href="{% url 'Entrega3:resenias_listado' %}" class="btn btn-secondary">Volver</a>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2>{{ pelicula.titulo }}</h2>
+    <p><strong>Director:</strong> {{ pelicula.director }}</p>
+    <p><strong>Fecha de estreno:</strong> {{ pelicula.fecha_estreno|date:"d/m/Y" }}</p>
+    <p><strong>Puntuación:</strong> {{ pelicula.puntuacion }}</p>
+    
+    {% if pelicula.imagen %}
+        <img src="{{ pelicula.imagen.url }}" alt="{{ pelicula.titulo }}" class="img-fluid my-3 rounded border">
+    {% endif %}
+
+    <a href="{% url 'Entrega3:resenias_listado' %}" class="btn btn-secondary">Volver</a>
+</div>
+{% endblock %}

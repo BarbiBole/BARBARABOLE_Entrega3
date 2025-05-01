@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="container mt-4">
+    <h2>Listado de reseñas</h2>
+    <p>Podrás encontrar reseñas de libros, películas y conciertos.</p>
+    <p>Hacé clic abajo para consultar todos los datos registrados:</p>
+
+    <a href="{% url 'Entrega3:resenias_listado' %}" class="btn btn-success mb-3">Ver Base de Datos</a>
+</div>
+{% endblock %}
